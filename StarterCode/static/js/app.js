@@ -4,8 +4,10 @@ var tbody = d3.select("tbody");
 // Console.log the UFO data from data.js
 console.log(tableData);
 
-data.forEach(function(UFOdata) {
-    console.log(UFOdata);
+//create function to display the data
+function loaddata(input) {
+  input.forEach((UFOdata)=>{
+    // console.log(UFOdata);
     var row = tbody.append("tr");
     Object.entries(UFOdata).forEach(function([key, value]) {
      console.log(key, value);
@@ -15,6 +17,8 @@ data.forEach(function(UFOdata) {
       cell.text(value);
      });
   });
+}
+loaddata(tableData);
 
   // Select the button
 var button = d3.select("#filter-btn");
@@ -26,11 +30,13 @@ button.on("click", function(event) {
   var inputElement = d3.select("#datetime");
   // Get the value property of the input element
   var inputValue = inputElement.property("value");
-  // Use the form input to filter the data by blood type
-//   console.log(inputValue);
-  console.log(tableData.filter(function(date){
+  // Use the form input to filter the data by date
+  console.log(inputValue);
+  var filterdata =tableData.filter(function(date){
     return date.datetime === inputValue;
-}
-))
-});
+})
+
+tbody.html("");
+    loaddata(filterdata);
+  });
   
